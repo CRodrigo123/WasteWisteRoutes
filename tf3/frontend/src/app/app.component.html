@@ -1,0 +1,65 @@
+<div class="estructura">
+  <header class="barra-superior">
+    <button *ngIf="auth.usuarioActual$ | async" class="boton-menu" (click)="menuAbierto = !menuAbierto" aria-label="Abrir menú">☰</button>
+    <a routerLink="/" class="marca" (click)="menuAbierto = false">
+      <span class="marca-icono">⬢</span>
+      <span class="marca-texto">Waste Wise Routes</span>
+    </a>
+    <span class="marca-sub">Gestión inteligente de residuos · Lima</span>
+
+    <div *ngIf="auth.usuarioActual$ | async as usuario" class="usuario-barra">
+      <span>{{ usuario.nombre }} · {{ usuario.tipo }}</span>
+      <button type="button" class="btn-salir" (click)="cerrarSesion()">Salir</button>
+    </div>
+  </header>
+
+  <ng-container *ngIf="auth.usuarioActual$ | async; else contenidoSinSesion">
+    <div class="cuerpo">
+      <nav class="lateral" [class.abierto]="menuAbierto">
+        <a routerLink="/" routerLinkActive="activo" [routerLinkActiveOptions]="{ exact: true }"
+           class="enlace" (click)="menuAbierto = false">
+          {{ auth.esAdmin() ? 'Panel general' : 'Mi panel' }}
+        </a>
+
+        <ng-container *ngIf="auth.esAdmin(); else menuCliente">
+          <div *ngFor="let grupo of grupos" class="grupo">
+            <p class="grupo-titulo">{{ grupo.nombre }}</p>
+            <a *ngFor="let recurso of grupo.recursos"
+               [routerLink]="['/gestion', recurso]"
+               routerLinkActive="activo"
+               class="enlace"
+               (click)="menuAbierto = false">
+              {{ entidades[recurso].titulo }}
+            </a>
+          </div>
+        </ng-container>
+
+        <ng-template #menuCliente>
+          <div class="grupo">
+            <p class="grupo-titulo">Mis datos</p>
+            <a [routerLink]="['/mis', 'reportes']" routerLinkActive="activo" class="enlace" (click)="menuAbierto = false">Mis reportes</a>
+            <a [routerLink]="['/mis', 'rutas']" routerLinkActive="activo" class="enlace" (click)="menuAbierto = false">Mis rutas</a>
+            <a [routerLink]="['/mis', 'notificaciones']" routerLinkActive="activo" class="enlace" (click)="menuAbierto = false">Mis notificaciones</a>
+            <a [routerLink]="['/mis', 'evidencias']" routerLinkActive="activo" class="enlace" (click)="menuAbierto = false">Mis evidencias</a>
+          </div>
+        </ng-template>
+
+        <div class="grupo">
+          <p class="grupo-titulo">Servicio externo</p>
+          <a routerLink="/geocodificador" routerLinkActive="activo"
+             class="enlace" (click)="menuAbierto = false">Google Maps</a>
+        </div>
+      </nav>
+
+      <main class="contenido">
+        <router-outlet></router-outlet>
+      </main>
+    </div>
+  </ng-container>
+
+  <ng-template #contenidoSinSesion>
+    <main class="contenido-login">
+      <router-outlet></router-outlet>
+    </main>
+  </ng-template>
+</div>

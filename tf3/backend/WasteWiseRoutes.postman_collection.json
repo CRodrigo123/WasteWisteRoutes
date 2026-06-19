@@ -1,0 +1,120 @@
+{
+  "info": {
+    "name": "Waste Wise Routes API",
+    "description": "Coleccion completa de endpoints de la API REST de Waste Wise Routes",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "variable": [
+    { "key": "base_url", "value": "http://localhost:8080/grupo3/WasteWiseRoutes" }
+  ],
+  "item": [
+    {
+      "name": "Empresa",
+      "item": [
+        { "name": "Listar empresas", "request": { "method": "GET", "url": "{{base_url}}/Empresa" } },
+        { "name": "Obtener empresa por ID", "request": { "method": "GET", "url": "{{base_url}}/Empresa/1" } },
+        { "name": "Crear empresa", "request": { "method": "POST", "header": [{ "key": "Content-Type", "value": "application/json" }], "url": "{{base_url}}/Empresa", "body": { "mode": "raw", "raw": "{\n  \"nombre\": \"EcoRecolectora Lima S.A.C.\",\n  \"ruc\": \"20601234567\",\n  \"telefono\": \"014567890\",\n  \"direccion\": \"Av. Argentina 2345, Cercado de Lima\"\n}" } } },
+        { "name": "Actualizar empresa", "request": { "method": "PUT", "header": [{ "key": "Content-Type", "value": "application/json" }], "url": "{{base_url}}/Empresa/1", "body": { "mode": "raw", "raw": "{\n  \"nombre\": \"EcoRecolectora Lima S.A.C.\",\n  \"ruc\": \"20601234567\",\n  \"telefono\": \"014999888\",\n  \"direccion\": \"Av. Argentina 2345, Cercado de Lima\"\n}" } } },
+        { "name": "Eliminar empresa", "request": { "method": "DELETE", "url": "{{base_url}}/Empresa/1" } }
+      ]
+    },
+    {
+      "name": "Vehiculo",
+      "item": [
+        { "name": "Listar vehiculos", "request": { "method": "GET", "url": "{{base_url}}/Vehiculo" } },
+        { "name": "Obtener vehiculo por ID", "request": { "method": "GET", "url": "{{base_url}}/Vehiculo/1" } },
+        { "name": "Crear vehiculo", "request": { "method": "POST", "header": [{ "key": "Content-Type", "value": "application/json" }], "url": "{{base_url}}/Vehiculo", "body": { "mode": "raw", "raw": "{\n  \"placa\": \"ABC-123\",\n  \"capacidad\": 8.5,\n  \"estado\": \"ACTIVO\",\n  \"empresa\": { \"id\": 1 }\n}" } } },
+        { "name": "Actualizar vehiculo", "request": { "method": "PUT", "header": [{ "key": "Content-Type", "value": "application/json" }], "url": "{{base_url}}/Vehiculo/1", "body": { "mode": "raw", "raw": "{\n  \"placa\": \"ABC-123\",\n  \"capacidad\": 10.0,\n  \"estado\": \"MANTENIMIENTO\",\n  \"empresa\": { \"id\": 1 }\n}" } } },
+        { "name": "Eliminar vehiculo", "request": { "method": "DELETE", "url": "{{base_url}}/Vehiculo/1" } }
+      ]
+    },
+    {
+      "name": "Ubicacion",
+      "item": [
+        { "name": "Listar ubicaciones", "request": { "method": "GET", "url": "{{base_url}}/Ubicacion" } },
+        { "name": "Obtener ubicacion por ID", "request": { "method": "GET", "url": "{{base_url}}/Ubicacion/1" } },
+        { "name": "Crear ubicacion", "request": { "method": "POST", "header": [{ "key": "Content-Type", "value": "application/json" }], "url": "{{base_url}}/Ubicacion", "body": { "mode": "raw", "raw": "{\n  \"latitud\": -12.046374,\n  \"longitud\": -77.042793,\n  \"direccion\": \"Plaza Mayor de Lima, Cercado de Lima\"\n}" } } },
+        { "name": "Actualizar ubicacion", "request": { "method": "PUT", "header": [{ "key": "Content-Type", "value": "application/json" }], "url": "{{base_url}}/Ubicacion/1", "body": { "mode": "raw", "raw": "{\n  \"latitud\": -12.046374,\n  \"longitud\": -77.042793,\n  \"direccion\": \"Jr. de la Union 500, Cercado de Lima\"\n}" } } },
+        { "name": "Eliminar ubicacion", "request": { "method": "DELETE", "url": "{{base_url}}/Ubicacion/1" } }
+      ]
+    },
+    {
+      "name": "Usuario",
+      "item": [
+        { "name": "Listar usuarios", "request": { "method": "GET", "url": "{{base_url}}/Usuario" } },
+        { "name": "Obtener usuario por ID", "request": { "method": "GET", "url": "{{base_url}}/Usuario/1" } },
+        { "name": "Crear usuario", "request": { "method": "POST", "header": [{ "key": "Content-Type", "value": "application/json" }], "url": "{{base_url}}/Usuario", "body": { "mode": "raw", "raw": "{\n  \"nombre\": \"Lucas Medina\",\n  \"correo\": \"lucas.medina@gmail.com\",\n  \"password\": \"segura123\",\n  \"tipo\": \"CIUDADANO\"\n}" } } },
+        { "name": "Actualizar usuario", "request": { "method": "PUT", "header": [{ "key": "Content-Type", "value": "application/json" }], "url": "{{base_url}}/Usuario/1", "body": { "mode": "raw", "raw": "{\n  \"nombre\": \"Lucas Medina Torres\",\n  \"correo\": \"lucas.medina@gmail.com\",\n  \"password\": \"segura123\",\n  \"tipo\": \"CIUDADANO\"\n}" } } },
+        { "name": "Eliminar usuario", "request": { "method": "DELETE", "url": "{{base_url}}/Usuario/1" } }
+      ]
+    },
+    {
+      "name": "Ruta",
+      "item": [
+        { "name": "Listar rutas", "request": { "method": "GET", "url": "{{base_url}}/Ruta" } },
+        { "name": "Obtener ruta por ID", "request": { "method": "GET", "url": "{{base_url}}/Ruta/1" } },
+        { "name": "Crear ruta", "request": { "method": "POST", "header": [{ "key": "Content-Type", "value": "application/json" }], "url": "{{base_url}}/Ruta", "body": { "mode": "raw", "raw": "{\n  \"fecha\": \"2026-06-15\",\n  \"estado\": \"PROGRAMADA\",\n  \"empresa\": { \"id\": 1 },\n  \"vehiculo\": { \"id\": 1 }\n}" } } },
+        { "name": "Actualizar ruta", "request": { "method": "PUT", "header": [{ "key": "Content-Type", "value": "application/json" }], "url": "{{base_url}}/Ruta/1", "body": { "mode": "raw", "raw": "{\n  \"fecha\": \"2026-06-15\",\n  \"estado\": \"COMPLETADA\",\n  \"empresa\": { \"id\": 1 },\n  \"vehiculo\": { \"id\": 1 }\n}" } } },
+        { "name": "Eliminar ruta", "request": { "method": "DELETE", "url": "{{base_url}}/Ruta/1" } }
+      ]
+    },
+    {
+      "name": "RutaDetalle",
+      "item": [
+        { "name": "Listar detalles de ruta", "request": { "method": "GET", "url": "{{base_url}}/RutaDetalle" } },
+        { "name": "Obtener detalle por ID", "request": { "method": "GET", "url": "{{base_url}}/RutaDetalle/1" } },
+        { "name": "Crear detalle de ruta", "request": { "method": "POST", "header": [{ "key": "Content-Type", "value": "application/json" }], "url": "{{base_url}}/RutaDetalle", "body": { "mode": "raw", "raw": "{\n  \"orden\": 1,\n  \"ruta\": { \"id\": 1 },\n  \"ubicacion\": { \"id\": 1 }\n}" } } },
+        { "name": "Actualizar detalle", "request": { "method": "PUT", "header": [{ "key": "Content-Type", "value": "application/json" }], "url": "{{base_url}}/RutaDetalle/1", "body": { "mode": "raw", "raw": "{\n  \"orden\": 2,\n  \"ruta\": { \"id\": 1 },\n  \"ubicacion\": { \"id\": 1 }\n}" } } },
+        { "name": "Eliminar detalle", "request": { "method": "DELETE", "url": "{{base_url}}/RutaDetalle/1" } }
+      ]
+    },
+    {
+      "name": "Reporte",
+      "item": [
+        { "name": "Listar reportes", "request": { "method": "GET", "url": "{{base_url}}/Reporte" } },
+        { "name": "Obtener reporte por ID", "request": { "method": "GET", "url": "{{base_url}}/Reporte/1" } },
+        { "name": "Crear reporte", "request": { "method": "POST", "header": [{ "key": "Content-Type", "value": "application/json" }], "url": "{{base_url}}/Reporte", "body": { "mode": "raw", "raw": "{\n  \"descripcion\": \"Acumulacion de basura en la esquina, tres dias sin recojo\",\n  \"estado\": \"PENDIENTE\",\n  \"usuario\": { \"id\": 1 },\n  \"ubicacion\": { \"id\": 1 },\n  \"empresa\": { \"id\": 1 }\n}" } } },
+        { "name": "Actualizar reporte", "request": { "method": "PUT", "header": [{ "key": "Content-Type", "value": "application/json" }], "url": "{{base_url}}/Reporte/1", "body": { "mode": "raw", "raw": "{\n  \"descripcion\": \"Acumulacion de basura en la esquina, tres dias sin recojo\",\n  \"estado\": \"RESUELTO\",\n  \"usuario\": { \"id\": 1 },\n  \"ubicacion\": { \"id\": 1 },\n  \"empresa\": { \"id\": 1 }\n}" } } },
+        { "name": "Eliminar reporte", "request": { "method": "DELETE", "url": "{{base_url}}/Reporte/1" } }
+      ]
+    },
+    {
+      "name": "Evidencia",
+      "item": [
+        { "name": "Listar evidencias", "request": { "method": "GET", "url": "{{base_url}}/Evidencia" } },
+        { "name": "Obtener evidencia por ID", "request": { "method": "GET", "url": "{{base_url}}/Evidencia/1" } },
+        { "name": "Crear evidencia", "request": { "method": "POST", "header": [{ "key": "Content-Type", "value": "application/json" }], "url": "{{base_url}}/Evidencia", "body": { "mode": "raw", "raw": "{\n  \"urlImagen\": \"https://res.cloudinary.com/wwr/reportes/basura-esquina-01.jpg\",\n  \"reporte\": { \"id\": 1 }\n}" } } },
+        { "name": "Actualizar evidencia", "request": { "method": "PUT", "header": [{ "key": "Content-Type", "value": "application/json" }], "url": "{{base_url}}/Evidencia/1", "body": { "mode": "raw", "raw": "{\n  \"urlImagen\": \"https://res.cloudinary.com/wwr/reportes/basura-esquina-02.jpg\",\n  \"reporte\": { \"id\": 1 }\n}" } } },
+        { "name": "Eliminar evidencia", "request": { "method": "DELETE", "url": "{{base_url}}/Evidencia/1" } }
+      ]
+    },
+    {
+      "name": "Notificacion",
+      "item": [
+        { "name": "Listar notificaciones", "request": { "method": "GET", "url": "{{base_url}}/Notificacion" } },
+        { "name": "Obtener notificacion por ID", "request": { "method": "GET", "url": "{{base_url}}/Notificacion/1" } },
+        { "name": "Crear notificacion", "request": { "method": "POST", "header": [{ "key": "Content-Type", "value": "application/json" }], "url": "{{base_url}}/Notificacion", "body": { "mode": "raw", "raw": "{\n  \"mensaje\": \"Tu reporte fue atendido. El camion recolector paso por la zona.\",\n  \"leido\": false,\n  \"usuario\": { \"id\": 1 }\n}" } } },
+        { "name": "Actualizar notificacion", "request": { "method": "PUT", "header": [{ "key": "Content-Type", "value": "application/json" }], "url": "{{base_url}}/Notificacion/1", "body": { "mode": "raw", "raw": "{\n  \"mensaje\": \"Tu reporte fue atendido. El camion recolector paso por la zona.\",\n  \"leido\": true,\n  \"usuario\": { \"id\": 1 }\n}" } } },
+        { "name": "Eliminar notificacion", "request": { "method": "DELETE", "url": "{{base_url}}/Notificacion/1" } }
+      ]
+    },
+    {
+      "name": "ReporteEstadistico",
+      "item": [
+        { "name": "Listar reportes estadisticos", "request": { "method": "GET", "url": "{{base_url}}/ReporteEstadistico" } },
+        { "name": "Obtener por ID", "request": { "method": "GET", "url": "{{base_url}}/ReporteEstadistico/1" } },
+        { "name": "Crear reporte estadistico", "request": { "method": "POST", "header": [{ "key": "Content-Type", "value": "application/json" }], "url": "{{base_url}}/ReporteEstadistico", "body": { "mode": "raw", "raw": "{\n  \"fechaInicio\": \"2026-05-01\",\n  \"fechaFin\": \"2026-05-31\",\n  \"totalReportes\": 148,\n  \"ahorroCombustible\": 320.5,\n  \"empresa\": { \"id\": 1 }\n}" } } },
+        { "name": "Actualizar reporte estadistico", "request": { "method": "PUT", "header": [{ "key": "Content-Type", "value": "application/json" }], "url": "{{base_url}}/ReporteEstadistico/1", "body": { "mode": "raw", "raw": "{\n  \"fechaInicio\": \"2026-05-01\",\n  \"fechaFin\": \"2026-05-31\",\n  \"totalReportes\": 152,\n  \"ahorroCombustible\": 335.0,\n  \"empresa\": { \"id\": 1 }\n}" } } },
+        { "name": "Eliminar reporte estadistico", "request": { "method": "DELETE", "url": "{{base_url}}/ReporteEstadistico/1" } }
+      ]
+    },
+    {
+      "name": "Google Maps (Servicio Externo)",
+      "item": [
+        { "name": "Geocodificar direccion", "request": { "method": "GET", "url": { "raw": "{{base_url}}/maps/geocodificar?direccion=Av. Javier Prado Este 4600, Surco, Lima", "host": ["{{base_url}}"], "path": ["maps", "geocodificar"], "query": [{ "key": "direccion", "value": "Av. Javier Prado Este 4600, Surco, Lima" }] } } },
+        { "name": "Geocodificacion inversa", "request": { "method": "GET", "url": { "raw": "{{base_url}}/maps/geocodificar-inverso?latitud=-12.046374&longitud=-77.042793", "host": ["{{base_url}}"], "path": ["maps", "geocodificar-inverso"], "query": [{ "key": "latitud", "value": "-12.046374" }, { "key": "longitud", "value": "-77.042793" }] } } },
+        { "name": "Calcular distancia", "request": { "method": "GET", "url": { "raw": "{{base_url}}/maps/distancia?origen=Miraflores, Lima&destino=San Juan de Lurigancho, Lima", "host": ["{{base_url}}"], "path": ["maps", "distancia"], "query": [{ "key": "origen", "value": "Miraflores, Lima" }, { "key": "destino", "value": "San Juan de Lurigancho, Lima" }] } } }
+      ]
+    }
+  ]
+}
