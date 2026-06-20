@@ -1,0 +1,37 @@
+.encabezado {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 16px;
+  margin-bottom: 22px;
+  flex-wrap: wrap;
+}
+.conteo { color: #5a6b5d; font-size: 14px; margin-top: 4px; }
+.error {
+  background: #FDECEA;
+  color: var(--rojo-alerta);
+  padding: 12px 16px;
+  border-radius: 8px;
+  margin-bottom: 16px;
+  font-size: 14.5px;
+}
+.tabla-contenedor { padding: 0; overflow-x: auto; }
+.estado-carga { padding: 28px; color: #5a6b5d; text-align: center; }
+.acciones { display: flex; gap: 8px; }
+.fondo-modal {
+  position: fixed; inset: 0;
+  background: rgba(26, 26, 26, .45);
+  display: flex; align-items: center; justify-content: center;
+  padding: 20px; z-index: 50;
+}
+.modal { width: 100%; max-width: 520px; max-height: 90vh; overflow-y: auto; }
+.modal h2 { margin-bottom: 18px; }
+.campo { margin-bottom: 16px; }
+.req { color: var(--rojo-alerta); }
+.casilla {
+  display: flex; align-items: center; gap: 10px;
+  font-family: 'Roboto', sans-serif; font-size: 15px; font-weight: 400;
+}
+.casilla input { width: auto; }
+.modal-acciones { display: flex; justify-content: flex-end; gap: 10px; margin-top: 22px; }
+@media (max-width: 640px) { .acciones { flex-direction: column; } }

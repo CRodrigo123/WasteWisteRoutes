@@ -1,0 +1,70 @@
+<h1>Google Maps</h1>
+<p class="descripcion">
+  Servicio externo integrado a través de la API. Convierte direcciones a coordenadas para georreferenciar reportes y calcula distancias entre puntos de recolección.
+</p>
+
+<p *ngIf="mensaje" class="aviso">{{ mensaje }}</p>
+
+<div class="rejilla">
+  <div class="tarjeta">
+    <h3>Dirección → Coordenadas</h3>
+    <form (ngSubmit)="buscarCoordenadas()">
+      <div class="campo">
+        <label for="dir">Dirección en Lima</label>
+        <input id="dir" name="dir" [(ngModel)]="direccion" placeholder="Av. Javier Prado Este 4600, Surco" required />
+      </div>
+      <button type="submit" class="btn-primario" [disabled]="cargando === 'geo'">
+        {{ cargando === 'geo' ? 'Buscando…' : 'Obtener coordenadas' }}
+      </button>
+    </form>
+    <div *ngIf="resultadoGeo" class="resultado">
+      <p><strong>Dirección:</strong> {{ resultadoGeo.direccion }}</p>
+      <p><strong>Latitud:</strong> {{ resultadoGeo.latitud }}</p>
+      <p><strong>Longitud:</strong> {{ resultadoGeo.longitud }}</p>
+      <button class="btn-secundario" (click)="guardarComoUbicacion()">Guardar como ubicación</button>
+    </div>
+  </div>
+
+  <div class="tarjeta">
+    <h3>Coordenadas → Dirección</h3>
+    <form (ngSubmit)="buscarDireccion()">
+      <div class="campo-doble">
+        <div class="campo">
+          <label for="lat">Latitud</label>
+          <input id="lat" name="lat" [(ngModel)]="lat" type="number" step="any" placeholder="-12.046374" required />
+        </div>
+        <div class="campo">
+          <label for="lng">Longitud</label>
+          <input id="lng" name="lng" [(ngModel)]="lng" type="number" step="any" placeholder="-77.042793" required />
+        </div>
+      </div>
+      <button type="submit" class="btn-primario" [disabled]="cargando === 'inverso'">
+        {{ cargando === 'inverso' ? 'Buscando…' : 'Obtener dirección' }}
+      </button>
+    </form>
+    <div *ngIf="resultadoInverso" class="resultado">
+      <p><strong>Dirección:</strong> {{ resultadoInverso }}</p>
+    </div>
+  </div>
+
+  <div class="tarjeta">
+    <h3>Distancia entre dos puntos</h3>
+    <form (ngSubmit)="calcularDistancia()">
+      <div class="campo">
+        <label for="ori">Origen</label>
+        <input id="ori" name="ori" [(ngModel)]="origen" placeholder="Miraflores, Lima" required />
+      </div>
+      <div class="campo">
+        <label for="des">Destino</label>
+        <input id="des" name="des" [(ngModel)]="destino" placeholder="San Juan de Lurigancho, Lima" required />
+      </div>
+      <button type="submit" class="btn-primario" [disabled]="cargando === 'distancia'">
+        {{ cargando === 'distancia' ? 'Calculando…' : 'Calcular distancia' }}
+      </button>
+    </form>
+    <div *ngIf="resultadoDistancia" class="resultado">
+      <p><strong>Distancia:</strong> {{ resultadoDistancia.distancia }}</p>
+      <p><strong>Duración estimada:</strong> {{ resultadoDistancia.duracion }}</p>
+    </div>
+  </div>
+</div>

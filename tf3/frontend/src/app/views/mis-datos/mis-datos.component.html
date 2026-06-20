@@ -1,0 +1,77 @@
+<div class="encabezado">
+  <div>
+    <h1>{{ titulo }}</h1>
+    <p class="descripcion">{{ descripcion }}</p>
+  </div>
+  <button *ngIf="tipo === 'reportes'" class="btn-primario" (click)="abrirNuevoReporte()">+ Nuevo reporte</button>
+</div>
+
+<p *ngIf="mensajeError" class="error">{{ mensajeError }}</p>
+
+<div class="tarjeta tabla-contenedor">
+  <p *ngIf="cargando" class="estado-carga">Cargando…</p>
+  <p *ngIf="!cargando && registros.length === 0" class="estado-carga">
+    No hay información para mostrar todavía.
+  </p>
+
+  <table *ngIf="!cargando && registros.length > 0">
+    <thead>
+      <tr>
+        <th *ngFor="let c of columnas">{{ c.etiqueta }}</th>
+        <th *ngIf="tipo === 'reportes' || tipo === 'notificaciones'">Acciones</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let r of registros">
+        <td *ngFor="let c of columnas">
+          <span *ngIf="c.clave === 'estado'" [class]="clasePorEstado(r.estado)">{{ r.estado }}</span>
+          <ng-container *ngIf="c.clave !== 'estado'">{{ valor(r, c.clave) }}</ng-container>
+        </td>
+        <td *ngIf="tipo === 'reportes'" class="acciones">
+          <button class="btn-secundario" (click)="abrirEdicionReporte(r)">Editar</button>
+          <button class="btn-fantasma" (click)="eliminarReporte(r.id)">Eliminar</button>
+        </td>
+        <td *ngIf="tipo === 'notificaciones'" class="acciones">
+          <button class="btn-secundario" [disabled]="r.leido" (click)="marcarLeida(r.id)">
+            {{ r.leido ? 'Leída' : 'Marcar leída' }}
+          </button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+<div *ngIf="tipo === 'rutas'" class="tarjeta tabla-contenedor detalles">
+  <h2>Detalles de mis rutas</h2>
+  <p *ngIf="!cargando && detallesRuta.length === 0" class="estado-carga">No hay detalles de ruta asignados.</p>
+  <table *ngIf="detallesRuta.length > 0">
+    <thead>
+      <tr><th>Ruta</th><th>Orden</th><th>Ubicación</th></tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let d of detallesRuta">
+        <td>#{{ d.ruta?.id || '—' }}</td>
+        <td>{{ d.orden || '—' }}</td>
+        <td>{{ d.ubicacion?.direccion || '—' }}</td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+<div *ngIf="modalReporte" class="fondo-modal" (click)="modalReporte = false">
+  <div class="modal tarjeta" (click)="$event.stopPropagation()">
+    <h2>{{ editandoReporteId ? 'Editar reporte' : 'Nuevo reporte' }}</h2>
+    <form #form="ngForm" (ngSubmit)="guardarReporte()">
+      <div class="campo">
+        <label for="descripcion">Descripción *</label>
+        <textarea id="descripcion" name="descripcion" rows="4" [(ngModel)]="formularioReporte.descripcion" required></textarea>
+      </div>
+      <div class="modal-acciones">
+        <button type="button" class="btn-fantasma" (click)="modalReporte = false">Cancelar</button>
+        <button type="submit" class="btn-primario" [disabled]="form.invalid">
+          {{ editandoReporteId ? 'Guardar cambios' : 'Crear reporte' }}
+        </button>
+      </div>
+    </form>
+  </div>
+</div>

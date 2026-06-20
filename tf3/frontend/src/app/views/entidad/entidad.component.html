@@ -1,0 +1,107 @@
+<div *ngIf="config">
+  <div class="encabezado">
+    <div>
+      <h1>{{ config.titulo }}</h1>
+      <p class="conteo">{{ registros.length }} registros</p>
+    </div>
+    <button class="btn-primario" (click)="abrirNuevo()">+ Agregar {{ config.singular }}</button>
+  </div>
+
+  <p *ngIf="mensajeError" class="error">{{ mensajeError }}</p>
+
+  <div class="tarjeta tabla-contenedor">
+    <p *ngIf="cargando" class="estado-carga">Cargando…</p>
+    <p *ngIf="!cargando && registros.length === 0" class="estado-carga">
+      No hay registros todavía. Usa el botón "Agregar {{ config.singular }}" para crear el primero.
+    </p>
+    <table *ngIf="!cargando && registros.length > 0">
+      <thead>
+        <tr>
+          <th>ID</th>
+          <th *ngFor="let c of camposTabla">{{ c.etiqueta }}</th>
+          <th>Acciones</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let r of registros">
+          <td>{{ r.id }}</td>
+          <td *ngFor="let c of camposTabla">
+            <span *ngIf="c.clave === 'estado'" [class]="clasePorEstado(r.estado)">{{ r.estado }}</span>
+            <ng-container *ngIf="c.clave !== 'estado'">{{ mostrarCelda(r, c) }}</ng-container>
+          </td>
+          <td class="acciones">
+            <button class="btn-secundario" (click)="abrirEdicion(r)">Editar</button>
+            <button *ngIf="confirmandoId !== r.id" class="btn-fantasma" (click)="confirmandoId = r.id">Eliminar</button>
+            <button *ngIf="confirmandoId === r.id" class="btn-peligro" (click)="eliminar(r.id)">Confirmar</button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- Modal -->
+  <div *ngIf="modalAbierto" class="fondo-modal" (click)="modalAbierto = false">
+    <div class="modal tarjeta" (click)="$event.stopPropagation()">
+      <h2>{{ editandoId ? 'Editar' : 'Agregar' }} {{ config.singular }}</h2>
+
+      <form #form="ngForm" (ngSubmit)="guardar()">
+        <div *ngFor="let c of config.campos" class="campo">
+          <label [for]="c.clave">
+            {{ c.etiqueta }}<span *ngIf="c.requerido || (!editandoId && c.clave === 'password')" class="req"> *</span>
+          </label>
+
+          <!-- Área de texto -->
+          <textarea *ngIf="c.tipo === 'textoLargo'"
+            [id]="c.clave" [name]="c.clave"
+            [(ngModel)]="formulario[c.clave]"
+            rows="3"
+            [required]="!!c.requerido">
+          </textarea>
+
+          <!-- Opciones (select de valores fijos) -->
+          <select *ngIf="c.tipo === 'opciones'"
+            [id]="c.clave" [name]="c.clave"
+            [(ngModel)]="formulario[c.clave]"
+            [required]="!!c.requerido">
+            <option value="">Selecciona una opción</option>
+            <option *ngFor="let op of c.opciones" [value]="op">{{ op }}</option>
+          </select>
+
+          <!-- Relación (select de entidades del backend) -->
+          <select *ngIf="c.tipo === 'relacion'"
+            [id]="c.clave" [name]="c.clave"
+            [(ngModel)]="formulario[c.clave]"
+            [required]="!!c.requerido">
+            <option [ngValue]="null">Selecciona {{ c.etiqueta.toLowerCase() }}</option>
+            <option *ngFor="let item of relaciones[c.clave] || []" [ngValue]="item.id">
+              {{ item[c.mostrar!] ?? item.id }} &nbsp;(ID {{ item.id }})
+            </option>
+          </select>
+
+          <!-- Booleano (checkbox) -->
+          <div *ngIf="c.tipo === 'booleano'" class="casilla">
+            <input type="checkbox"
+              [id]="c.clave" [name]="c.clave"
+              [(ngModel)]="formulario[c.clave]" />
+            <span>Sí</span>
+          </div>
+
+          <!-- Input de texto, número, fecha, correo, password -->
+          <input *ngIf="esInputSimple(c)"
+            [id]="c.clave" [name]="c.clave"
+            [(ngModel)]="formulario[c.clave]"
+            [type]="tipoInput(c)"
+            [attr.step]="c.tipo === 'numero' ? 'any' : null"
+            [required]="!!c.requerido || (!editandoId && c.clave === 'password')" />
+        </div>
+
+        <div class="modal-acciones">
+          <button type="button" class="btn-fantasma" (click)="modalAbierto = false">Cancelar</button>
+          <button type="submit" class="btn-primario">
+            {{ editandoId ? 'Guardar cambios' : 'Crear ' + config.singular }}
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>

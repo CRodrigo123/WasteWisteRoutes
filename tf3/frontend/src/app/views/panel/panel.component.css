@@ -1,0 +1,17 @@
+.descripcion { color: #5a6b5d; margin: 6px 0 26px; }
+.rejilla-tarjetas {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(190px, 1fr));
+  gap: 16px;
+  margin-bottom: 28px;
+}
+.tarjeta-metrica { border-left: 4px solid var(--verde-claro); }
+.metrica-valor { font-family: 'Poppins', sans-serif; font-size: 34px; font-weight: 700; color: var(--verde-bosque); }
+.metrica-etiqueta { font-size: 13.5px; color: #5a6b5d; margin-top: 2px; }
+.seccion-reportes h2 { margin-bottom: 14px; }
+.vacio { color: #5a6b5d; padding: 14px 0; }
+.aviso-error { border-left: 4px solid var(--rojo-alerta); }
+.aviso-error h3 { color: var(--rojo-alerta); margin-bottom: 6px; }
+.bienvenida-cliente { margin-bottom: 18px; border-left: 4px solid var(--azul-urbano); }
+.bienvenida-cliente p { margin-top: 8px; color: #5a6b5d; }
+.bloque-secundario { margin-top: 22px; }

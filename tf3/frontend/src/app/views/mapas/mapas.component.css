@@ -1,0 +1,19 @@
+.descripcion { color: #5a6b5d; margin: 6px 0 24px; max-width: 640px; }
+.aviso {
+  background: #E8F5E9; color: var(--verde-bosque);
+  padding: 12px 16px; border-radius: 8px; margin-bottom: 18px; font-size: 14.5px;
+}
+.rejilla {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 18px;
+}
+.tarjeta h3 { margin-bottom: 16px; color: var(--verde-bosque); }
+.campo { margin-bottom: 14px; }
+.campo-doble { display: flex; gap: 12px; }
+.campo-doble .campo { flex: 1; }
+.resultado {
+  margin-top: 16px; padding: 14px;
+  background: var(--gris-fondo); border-radius: 8px;
+  font-size: 14.5px; display: grid; gap: 8px;
+}
